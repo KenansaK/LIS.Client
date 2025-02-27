@@ -1,0 +1,117 @@
+<div class="users-container" *ngIf="hasPermission('View User')">
+  <div class="header">
+    <h2>Users</h2>
+    <div class="search-wrapper">
+      <mat-form-field appearance="outline" class="search-field">
+        <input matInput 
+               [value]="searchTerm" 
+               (input)="onSearch($event)" 
+               placeholder="Search users...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="actions">
+      <button mat-raised-button 
+              color="primary" 
+              (click)="addUser()"
+              *ngIf="hasPermission('Create User')">
+        <mat-icon>add</mat-icon>
+        Add User
+      </button>
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="users" matSort (matSortChange)="onSort($event)">
+      
+      <!-- Username Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+        <td mat-cell *matCellDef="let user"> {{user.username}} </td>
+      </ng-container>
+
+      <!-- Full Name Column -->
+      <ng-container matColumnDef="fullName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </th>
+        <td mat-cell *matCellDef="let user"> {{user.fullName}} </td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+      </ng-container>
+
+      <!-- Phone Column -->
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+        <td mat-cell *matCellDef="let user"> {{user.phoneNumber}} </td>
+      </ng-container>
+
+      <!-- Role Column -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+        <td mat-cell *matCellDef="let user">
+          {{getRoleName(user.roleId)}}
+        </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let user">
+          <span class="status-badge" [ngClass]="getStatusClass(user.status)">
+            {{getStatusLabel(user.status)}}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="hasPermission('Edit User') || hasPermission('Delete User')">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item 
+                    (click)="editUser(user.id)"
+                    *ngIf="hasPermission('Edit User')">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item 
+                    (click)="deleteUser(user.id)"
+                    *ngIf="hasPermission('Delete User')">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator 
+      [length]="totalRecords"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex - 1"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      (page)="onPageChange($event)"
+      showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</div>
+
+<!-- No Access Message -->
+<div *ngIf="!hasPermission('View User')" class="no-access-message">
+  <mat-card>
+    <mat-card-content>
+      <p>You don't have permission to view users.</p>
+      <button mat-button routerLink="/">Go to Dashboard</button>
+    </mat-card-content>
+  </mat-card>
+</div>
+  

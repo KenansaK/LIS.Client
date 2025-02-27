@@ -1,0 +1,14 @@
+.wrapper {
+    position: relative;
+    top: 0;
+    height: 100vh;
+    display: flex;
+}
+
+.main-panel {
+    flex: 1;
+    min-height: 100%;
+    overflow: auto;
+    margin-left: 260px;
+    position: relative;
+}

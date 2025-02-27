@@ -1,0 +1,46 @@
+<div class="permissions-container">
+  <div class="header" >
+    <h2>Role Permissions - {{roleName}}</h2>
+  </div>
+
+  <div class="search-bar">
+    <mat-form-field appearance="outline">
+      <mat-label>Search permissions</mat-label>
+      <input matInput 
+             [(ngModel)]="searchTerm" 
+             placeholder="Search...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="modules-container">
+    <div class="modules-nav">
+      <button mat-button 
+              *ngFor="let module of modules"
+              [class.active]="selectedModule === module"
+              (click)="selectedModule = module">
+        {{module | titlecase}}
+      </button>
+    </div>
+
+    <div class="permissions-list">
+      <mat-card>
+        <mat-card-content>
+          <mat-selection-list #permissionList>
+            <mat-list-option 
+              *ngFor="let permission of filterPermissions(getPermissionsByModule(selectedModule))"
+              [selected]="permission.isGranted"
+              (click)="onPermissionChange($event, permission); $event.preventDefault(); $event.stopPropagation();"
+              [value]="permission.id"
+              [disabled]="isPermissionDisabled(permission)"
+              matTooltip="{{getDisabledTooltip(permission)}}"
+              matTooltipPosition="right"
+              matTooltipClass="permission-tooltip">
+              {{permission.name}}
+            </mat-list-option>
+          </mat-selection-list>
+        </mat-card-content>
+      </mat-card>
+    </div>  
+  </div>
+</div>

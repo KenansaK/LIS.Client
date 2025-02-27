@@ -1,0 +1,230 @@
+<div class="form-container" *ngIf="hasPermission(isEditMode ? 'Edit Customer' : 'Create Customer')">
+  <div class="form-header">
+    <h1>{{isEditMode ? 'Edit' : 'Add'}} Customer</h1>
+    <button class="back-button" (click)="goBack()">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back to List
+    </button>
+  </div>
+
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="customer-form">
+    <div class="form-grid">
+      <div class="form-section">
+        <h2>Basic Information</h2>
+        
+        <div class="form-field" [class.error]="isFieldInvalid('companyCommercialName')">
+          <label for="companyCommercialName">
+            Commercial Name
+            <span class="required">*</span>
+          </label>
+          <input 
+            id="companyCommercialName" 
+            type="text" 
+            formControlName="companyCommercialName"
+            placeholder="Enter commercial name"
+          >
+          <div class="error-message" *ngIf="isFieldInvalid('companyCommercialName')">
+            Commercial name is required
+          </div>
+        </div>
+
+        <div class="form-field" [class.error]="isFieldInvalid('companyLegalName')">
+          <label for="companyLegalName">
+            Legal Name
+            <span class="required">*</span>
+          </label>
+          <input 
+            id="companyLegalName" 
+            type="text" 
+            formControlName="companyLegalName"
+            placeholder="Enter legal name"
+          >
+          <div class="error-message" *ngIf="isFieldInvalid('companyLegalName')">
+            Legal name is required
+          </div>
+        </div>
+
+        <div class="form-field" [class.error]="isFieldInvalid('businessType')">
+          <label for="businessType">
+            Business Type
+            <span class="required">*</span>
+          </label>
+          <select id="businessType" formControlName="businessType">
+            <option value="" disabled>Select business type</option>
+            <option *ngFor="let type of businessTypes" [value]="type.value">
+              {{type.name}}
+            </option>
+          </select>
+          <div class="error-message" *ngIf="isFieldInvalid('businessType')">
+            Business type is required
+          </div>
+        </div>
+
+        <div class="form-field" [class.error]="isFieldInvalid('status')">
+          <label for="status">
+            Status
+            <span class="required">*</span>
+          </label>
+          <select id="status" formControlName="status">
+            <option value="" disabled>Select status</option>
+            <option *ngFor="let status of customerStatuses" [value]="status.value">
+              {{status.name}}
+            </option>
+          </select>
+          <div class="error-message" *ngIf="isFieldInvalid('status')">
+            Status is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Identification</h2>
+        
+        <div class="form-field" [class.error]="isFieldInvalid('customerCode')">
+          <label for="customerCode">
+            Customer Code
+            <span class="required">*</span>
+          </label>
+          <input 
+            id="customerCode" 
+            type="text" 
+            formControlName="customerCode"
+            placeholder="Enter customer code"
+          >
+          <div class="error-message" *ngIf="isFieldInvalid('customerCode')">
+            Customer code is required
+          </div>
+        </div>
+
+        <div class="form-field" [class.error]="isFieldInvalid('customerNumber')">
+          <label for="customerNumber">
+            Customer Number
+            <span class="required">*</span>
+          </label>
+          <input 
+            id="customerNumber" 
+            type="text" 
+            formControlName="customerNumber"
+            placeholder="Enter customer number"
+          >
+          <div class="error-message" *ngIf="isFieldInvalid('customerNumber')">
+            Customer number is required
+          </div>
+        </div>
+
+        <div class="form-field" [class.error]="isFieldInvalid('registrationNumber')">
+          <label for="registrationNumber">
+            Registration Number
+            <span class="required">*</span>
+          </label>
+          <input 
+            id="registrationNumber" 
+            type="text" 
+            formControlName="registrationNumber"
+            placeholder="Enter registration number"
+          >
+          <div class="error-message" *ngIf="isFieldInvalid('registrationNumber')">
+            Registration number is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Additional Information</h2>
+        
+        <div class="form-field" [class.error]="isFieldInvalid('billingExternalCode')">
+          <label for="billingExternalCode">
+            Billing External Code
+            <span class="required">*</span>
+          </label>
+          <input 
+            id="billingExternalCode" 
+            type="text" 
+            formControlName="billingExternalCode"
+            placeholder="Enter billing external code"
+          >
+          <div class="error-message" *ngIf="isFieldInvalid('billingExternalCode')">
+            Billing external code is required
+          </div>
+        </div>
+
+        <div class="form-field" [class.error]="isFieldInvalid('externalCode')">
+          <label for="externalCode">
+            External Code
+            <span class="required">*</span>
+          </label>
+          <input 
+            id="externalCode" 
+            type="text" 
+            formControlName="externalCode"
+            placeholder="Enter external code"
+          >
+          <div class="error-message" *ngIf="isFieldInvalid('externalCode')">
+            External code is required
+          </div>
+        </div>
+
+        <div class="form-field" [class.error]="isFieldInvalid('storeBarcodePrefix')">
+          <label for="storeBarcodePrefix">
+            Store Barcode Prefix
+            <span class="required">*</span>
+          </label>
+          <input 
+            id="storeBarcodePrefix" 
+            type="text" 
+            formControlName="storeBarcodePrefix"
+            placeholder="Enter store barcode prefix"
+          >
+          <div class="error-message" *ngIf="isFieldInvalid('storeBarcodePrefix')">
+            Store barcode prefix is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Company Logo</h2>
+        
+        <div class="logo-upload">
+          <div class="logo-preview" [class.has-image]="selectedLogo">
+            <img *ngIf="selectedLogo" [src]="'data:image/jpeg;base64,' + selectedLogo" alt="Company Logo">
+            <div *ngIf="!selectedLogo" class="upload-placeholder">
+              <span class="material-symbols-outlined">image</span>
+              <p>Upload company logo</p>
+            </div>
+          </div>
+          <div class="upload-button">
+            <label for="logo" class="file-input-label">
+              <span class="material-symbols-outlined">upload</span>
+              {{selectedLogo ? 'Change Logo' : 'Choose Logo'}}
+            </label>
+            <input 
+              type="file" 
+              id="logo" 
+              accept="image/*" 
+              (change)="onLogoSelected($event)"
+              class="file-input"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="cancel-button" (click)="goBack()">Cancel</button>
+      <button type="submit" [disabled]="!customerForm.valid || isSubmitting">
+        <span class="material-symbols-outlined">{{isEditMode ? 'edit' : 'add'}}</span>
+        {{isEditMode ? 'Update' : 'Create'}} Customer
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- No Access Message -->
+<div *ngIf="!hasPermission(isEditMode ? 'Edit Customer' : 'Create Customer')" class="no-access-message">
+  <mat-card>
+    <mat-card-content>
+      <p>You don't have permission to {{isEditMode ? 'edit' : 'create'}} customers.</p>
+      <button mat-button (click)="goBack()">Go Back</button>
+    </mat-card-content>
+  </mat-card>
+</div>

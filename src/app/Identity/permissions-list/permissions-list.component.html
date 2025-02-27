@@ -1,0 +1,53 @@
+<div class="container" *ngIf="hasPermission('View Permission')">
+  <div class="header">
+    <h1>Permissions</h1>
+    <div class="search-box">
+      <input type="text" placeholder="Search permissions..." (keyup)="applyFilter($event)" #input>
+      <button class="search-button">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- Permission Name Column -->
+      <ng-container matColumnDef="permissionName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Permission Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.permissionName}} </td>
+      </ng-container>
+
+      <!-- Permission Code Column -->
+      <ng-container matColumnDef="permissionCode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Permission Code </th>
+        <td mat-cell *matCellDef="let row"> {{row.permissionCode}} </td>
+      </ng-container>
+
+      <!-- Module Column -->
+      <ng-container matColumnDef="module">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Module </th>
+        <td mat-cell *matCellDef="let row"> {{row.module}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator 
+      [length]="totalRecords"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex - 1"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      (page)="onPageChange($event)"
+      showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</div>
+<div *ngIf="!hasPermission('View User')" class="no-access-message">
+  <mat-card>
+    <mat-card-content>
+      <p>You don't have permission to view users.</p>
+      <button mat-button routerLink="/">Go to Dashboard</button>
+    </mat-card-content>
+  </mat-card>
+</div>

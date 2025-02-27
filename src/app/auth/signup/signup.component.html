@@ -1,0 +1,95 @@
+
+<div class="form-wrapper">
+  <div class="form-logo"></div>
+  <div class="form-container">
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()" class="form">
+      <!-- Title -->
+      <h1 class="form-title">Sign Up</h1>
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username" class="form-label">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          class="form-input"
+          placeholder="Enter your username"
+        />
+        <div *ngIf="signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched" class="form-error">
+          Username is required and must be at least 3 characters.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fullName" class="form-label">Full Name</label>
+        <input
+          id="fullName"
+          type="text"
+          formControlName="fullName"
+          class="form-input"
+          placeholder="Enter your full name"
+        />
+        <div *ngIf="signUpForm.get('fullName')?.invalid && signUpForm.get('fullName')?.touched" class="form-error">
+          Full name is required and must be at least 3 characters long.
+        </div>
+      </div>
+      
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="form-input"
+          placeholder="Enter your email"
+        />
+        <div *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched" class="form-error">
+          Email is required and must be valid.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input
+          id="phoneNumber"
+          type="text"
+          formControlName="phoneNumber"
+          class="form-input"
+          placeholder="Enter your phone number"
+        />
+        <div *ngIf="signUpForm.get('phoneNumber')?.invalid && signUpForm.get('phoneNumber')?.touched" class="form-error">
+          Please Enter a valid phone number
+        </div>
+      </div>
+      
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="form-input"
+          placeholder="Enter your password"
+        />
+        <div *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched" class="form-error">
+          Password is required, must be at least 6 characters, and contain at least one uppercase letter, one lowercase letter, and one number.
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="form-button" [disabled]="signUpForm.invalid">
+        Sign Up
+      </button>
+
+      <!-- Already have an account? -->
+      <p class="form-footer">
+        Already have an account? <a routerLink="/login" class="form-link">Login</a>
+      </p>
+    </form>
+  </div>
+
+</div>

@@ -1,0 +1,151 @@
+<div class="details-container">
+  <div class="details-header">
+    <h1>Customer Details</h1>
+    <button class="back-button" routerLink="/crm/customers">
+      <mat-icon>arrow_back</mat-icon>
+      Back to List
+    </button>
+  </div>
+
+  <!-- Customer Details Section -->
+  <ng-container *ngIf="customer">
+    <div *hasPermission="'View Customer'" class="details-content">
+      <div class="logo-section">
+        <div class="customer-logo">
+          <img *ngIf="customer.logoBase64" [src]="'data:image/jpeg;base64,' + customer.logoBase64" alt="Company Logo">
+          <div *ngIf="!customer.logoBase64" class="no-logo">
+            <span class="material-symbols-outlined">business</span>
+          </div>
+        </div>
+        <h2>{{customer.companyCommercialName}}</h2>
+        <span class="status-badge" [class.active]="customer.status === CustomerStatus.Active">
+          {{getCustomerStatus(customer.status)}}
+        </span>
+      </div>
+
+      <div class="info-section">
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Company Legal Name</label>
+            <p>{{customer.companyLegalName}}</p>
+          </div>
+          
+          <div class="info-item">
+            <label>Customer Code</label>
+            <p>{{customer.customerCode}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Customer Number</label>
+            <p>{{customer.customerNumber}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Registration Number</label>
+            <p>{{customer.registrationNumber}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Business Type</label>
+            <p>{{getBusinessType(customer.businessType)}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>External Code</label>
+            <p>{{customer.externalCode}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Billing External Code</label>
+            <p>{{customer.billingExternalCode}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Store Barcode Prefix</label>
+            <p>{{customer.storeBarcodePrefix}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Created At</label>
+            <p>{{getFormattedDate(customer.createdAt)}}</p>
+          </div>
+
+          <div class="info-item" *ngIf="customer.updatedAt">
+            <label>Last Updated</label>
+            <p>{{getFormattedDate(customer.updatedAt)}}</p>
+          </div>
+
+          <div class="info-item" *ngIf="customer.createdBy">
+            <label>Created By</label>
+            <p>{{customer.createdBy}}</p>
+          </div>
+
+          <div class="info-item" *ngIf="customer.updatedBy">
+            <label>Updated By</label>
+            <p>{{customer.updatedBy}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Branches Section -->
+    <div *hasPermission="'View Branch'" class="branches-section">
+      <div class="section-header">
+        <h2>Branches</h2>
+        <button *hasPermission="'Create Branch'" mat-raised-button color="primary" (click)="navigateToAddBranch()">
+          <mat-icon>add</mat-icon>
+          Add Branch
+        </button>
+      </div>
+      <div class="branches-grid">
+        <mat-card class="branch-card" *ngFor="let branch of branches">
+          <mat-card-header>
+            <mat-card-title>{{branch.branchName}}</mat-card-title>
+            <mat-card-subtitle>Branch Code: {{branch.branchCode}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="branch-details">
+              <p><strong>GPI:</strong> {{branch.gpi}}</p>
+              <p><strong>VAT Number:</strong> {{branch.vatNumber}}</p>
+              <p><strong>EORI:</strong> {{branch.eori}}</p>
+              <p><strong>IOSS:</strong> {{branch.ioss}}</p>
+            </div>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button *hasPermission="'View Branch'" mat-menu-item (click)="viewBranchDetails(branch.id)">
+                <mat-icon>visibility</mat-icon>
+                <span>View Details</span>
+              </button>
+              <button *hasPermission="'Edit Branch'" mat-menu-item (click)="editBranch(branch.id)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button *hasPermission="'Delete Branch'" mat-menu-item (click)="deleteBranch(branch.id)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- No Access Message -->
+    <div *ngIf="!hasAnyPermission(['View Customer', 'View Branch'])" class="no-access-message">
+      <mat-card>
+        <mat-card-content>
+          <p>You don't have permission to view this content.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+
+  <div *ngIf="!customer" class="loading-state">
+    <mat-icon>hourglass_empty</mat-icon>
+    <p>Loading customer details...</p>
+  </div>
+</div>

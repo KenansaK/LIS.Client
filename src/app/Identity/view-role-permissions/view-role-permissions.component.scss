@@ -1,0 +1,82 @@
+.permissions-container {
+  padding: 24px;
+
+  .header {
+    margin-bottom: 24px;
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+  }
+
+  .search-bar {
+    margin-bottom: 24px;
+    mat-form-field {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+
+  .modules-container {
+    display: flex;
+    gap: 24px;
+
+    .modules-nav {
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      button {
+        text-align: left;
+        justify-content: flex-start;
+        height: 48px;
+        border-radius: 8px;
+        
+        &.active {
+          background-color: #e0f2fe;
+          color: #0284c7;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .permissions-list {
+      flex: 1;
+      
+      mat-card {
+        border-radius: 12px;
+        
+        mat-selection-list {
+          padding: 0;
+        }
+        
+        
+
+        mat-list-option {
+          height: 48px;
+          
+          &:hover {
+            background-color: #f8fafc;
+          }
+        }
+      }
+    }
+  }
+   /* New CSS to disable checkbox interaction */
+   ::ng-deep .permission-tooltip {
+    font-size: 14px;
+    background-color: #333;
+    color: white !important;
+  }
+  ::ng-deep .mat-list-option[disabled] {
+    opacity: 0.7;
+    cursor: not-allowed !important;
+    
+    .mat-pseudo-checkbox {
+      background-color: #eeeeee;
+    }
+  }
+}

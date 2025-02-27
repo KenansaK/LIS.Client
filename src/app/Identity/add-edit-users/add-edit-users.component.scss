@@ -1,0 +1,160 @@
+.dialog-container {
+  padding: 24px;
+  min-width: 600px;
+  max-width: 800px;
+
+  h2 {
+    margin: 0 0 24px 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1e293b;
+  }
+
+  .mat-dialog-content {
+    padding: 0;
+    margin: 0;
+    max-height: none;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+
+    mat-form-field {
+      flex: 1;
+
+      ::ng-deep {
+        .mat-mdc-form-field-wrapper {
+          margin: 0;
+          padding: 0;
+        }
+
+        .mat-mdc-text-field-wrapper {
+          background: #f8fafc;
+          border-radius: 8px;
+        }
+
+        .mat-mdc-form-field-flex {
+          padding: 0 12px;
+        }
+
+        .mdc-floating-label {
+          color: #64748b;
+        }
+
+        .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+        .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+        .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+          border-color: #e2e8f0;
+        }
+
+        .mat-mdc-form-field-subscript-wrapper {
+          padding: 0;
+        }
+
+        .mat-mdc-select-value {
+          color: #334155;
+        }
+
+        .mat-mdc-select-arrow {
+          color: #64748b;
+        }
+      }
+    }
+  }
+
+  .mat-dialog-actions {
+    padding: 24px 0 0 0;
+    margin: 0;
+    gap: 12px;
+
+    button {
+      min-width: 100px;
+      height: 40px;
+      border-radius: 8px;
+      font-weight: 500;
+
+      &[mat-button] {
+        color: #64748b;
+        
+        &:hover {
+          background: #f1f5f9;
+        }
+      }
+
+      &[mat-raised-button] {
+        &:not(:disabled) {
+          background: #0ea5e9;
+          color: white;
+
+          &:hover {
+            background: #0284c7;
+          }
+        }
+
+        &:disabled {
+          background: #e2e8f0;
+          color: #94a3b8;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .mat-mdc-dialog-container {
+    --mdc-dialog-container-color: white;
+    padding: 0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+  }
+
+  .mat-mdc-dialog-surface {
+    border-radius: 12px !important;
+  }
+
+  .mat-mdc-select-panel {
+    background: white;
+    border-radius: 8px !important;
+    margin-top: 4px !important;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+
+    .mat-mdc-option {
+      min-height: 40px;
+      font-size: 14px;
+      color: #334155;
+
+      &:hover:not(.mdc-list-item--disabled) {
+        background: #f1f5f9;
+      }
+
+      &.mat-mdc-option-active {
+        background: #e0f2fe;
+      }
+
+      .mdc-list-item__primary-text {
+        color: inherit;
+      }
+    }
+  }
+
+  .mat-mdc-form-field-error {
+    font-size: 12px;
+    margin-top: 4px;
+    color: #ef4444;
+  }
+}
+
+@media (max-width: 768px) {
+  .dialog-container {
+    min-width: auto;
+    padding: 16px;
+
+    .form-row {
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+  }
+}

@@ -1,0 +1,170 @@
+.sidebar {
+    width: 250;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #1e1e2d;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+
+    &.collapsed {
+        width: 70px;
+        
+        .brand-text, .menu-text {
+            display: none;
+        }
+    }
+
+    .material-icons {
+        font-family: 'Material Icons';
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.sidebar-header {
+    padding: 1.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .logo {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            font-weight: 500;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+    }
+
+    .collapse-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: #fff;
+        padding: 8px;
+        border-radius: 4px;
+        
+        &:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        i {
+            font-size: 20px;
+        }
+    }
+}
+
+.sidebar-menu {
+    padding: 1rem 0;
+    flex: 1;
+    overflow-y: auto;
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        color: #a2a3b7;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        gap: 1rem;
+        cursor: pointer;
+        margin: 0.25rem 1rem;
+        border-radius: 4px;
+
+        &:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        &.active {
+            background: #00acc1;
+            color: #fff;
+            font-weight: 500;
+            box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14);
+        }
+
+        i {
+            font-size: 1.25rem;
+        }
+
+        .menu-text {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        &.has-submenu {
+            justify-content: space-between;
+            
+            .arrow {
+                margin-left: auto;
+            }
+        }
+    }
+
+    .submenu {
+        .submenu-item {
+            padding-left: 3rem;
+            font-size: 0.9rem;
+        }
+    }
+}
+
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        color: #a2a3b7;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        gap: 1rem;
+        cursor: pointer;
+        border-radius: 4px;
+
+        &:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        i {
+            font-size: 1.25rem;
+        }
+
+        .menu-text {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+    }
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+  font-size: 24px;
+} 

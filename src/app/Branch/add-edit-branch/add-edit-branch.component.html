@@ -1,0 +1,158 @@
+<div class="form-container" *ngIf="hasPermission(isEditMode ? 'Edit Branch' : 'Create Branch')">
+  <div class="form-header">
+    <h1>{{isEditMode ? 'Edit' : 'Add'}} Branch</h1>
+    <button class="back-button" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back to List
+    </button>
+  </div>
+  
+  
+  <form [formGroup]="branchForm" (ngSubmit)="onSubmit()" class="branch-form">
+    <div class="form-grid">
+      <!-- Required Fields -->
+      <mat-form-field appearance="outline">
+        <mat-label>Branch Name</mat-label>
+        <input matInput formControlName="branchName" placeholder="Enter branch name">
+        <mat-error *ngIf="branchForm.get('branchName')?.hasError('required')">Branch name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Branch Code</mat-label>
+        <input matInput formControlName="branchCode" placeholder="Enter branch code">
+        <mat-error *ngIf="branchForm.get('branchCode')?.hasError('required')">Branch code is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Currency Code</mat-label>
+        <mat-select formControlName="currencyCode">
+          <mat-option *ngFor="let option of currencies" [value]="option.value">
+            {{option.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="branchForm.get('currencyCode')?.hasError('required')">Currency code is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Weight Unit</mat-label>
+        <mat-select formControlName="weightUnit">
+          <mat-option *ngFor="let option of weightUnits" [value]="option.value">
+            {{option.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="branchForm.get('weightUnit')?.hasError('required')">Weight unit is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Dimension Unit</mat-label>
+        <mat-select formControlName="dimensionUnit">
+          <mat-option *ngFor="let option of dimensionUnits" [value]="option.value">
+            {{option.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="branchForm.get('dimensionUnit')?.hasError('required')">Dimension unit is required</mat-error>
+      </mat-form-field>
+
+      <!-- Optional Fields -->
+      <mat-form-field appearance="outline">
+        <mat-label>Consolidation Query</mat-label>
+        <input matInput formControlName="consolidationQuery" placeholder="Enter consolidation query">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>VAT Number</mat-label>
+        <input matInput formControlName="vatNumber" placeholder="Enter VAT number">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>EORI</mat-label>
+        <input matInput formControlName="eori" placeholder="Enter EORI">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>IOSS</mat-label>
+        <input matInput formControlName="ioss" placeholder="Enter IOSS">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+            {{option.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="branchForm.get('status')?.hasError('required')">Status is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>License Registration Number</mat-label>
+        <input matInput formControlName="licenseRegistrationNumber" placeholder="Enter license number">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>GPI</mat-label>
+        <input matInput formControlName="gpi" placeholder="Enter GPI">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>External Code</mat-label>
+        <input matInput formControlName="externalCode" placeholder="Enter external code">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Billing External Code</mat-label>
+        <input matInput formControlName="billingExternalCode" placeholder="Enter billing external code">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Allowed COD Currencies</mat-label>
+        <mat-select formControlName="allowedCODCurencies">
+          <mat-option *ngFor="let option of currencies" [value]="option.value">
+            {{option.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Product Service</mat-label>
+        <input matInput formControlName="productService" placeholder="Enter product service">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Product Type Code</mat-label>
+        <input matInput formControlName="productTypeCode" placeholder="Enter product type code">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Shipment Service</mat-label>
+        <input matInput formControlName="shipmentService" placeholder="Enter shipment service">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Supplier Code</mat-label>
+        <input matInput formControlName="supplierCode" placeholder="Enter supplier code">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Customer Code</mat-label>
+        <input matInput formControlName="customerCode" placeholder="Enter customer code">
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!branchForm.valid"
+      *hasPermission="isEditMode ? 'Edit Branch' : 'Create Branch'">
+        {{isEditMode ? 'Update' : 'Create'}} Branch
+      </button>
+      <button mat-button type="button" (click)="goBack()">Cancel</button>
+    </div>
+  </form>
+</div> 
+<div *ngIf="!hasRequiredPermission()" class="no-access-message">
+  <mat-card>
+    <mat-card-content>
+      <p>You don't have permission to {{isEditMode ? 'edit' : 'create'}} branches.</p>
+      <button mat-button (click)="goBack()">Go Back</button>
+    </mat-card-content>
+  </mat-card>
+</div>

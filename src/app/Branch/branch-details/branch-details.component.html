@@ -1,0 +1,183 @@
+<div class="details-container">
+  <div class="details-header">
+    <h1>Branch Details</h1>
+    <button class="back-button" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Back to List
+    </button>
+  </div>
+
+  <ng-container *ngIf="branch && hasPermission('View Branch')">
+    <div class="details-content">
+      <div class="info-section">
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Branch Name</label>
+            <p>{{branch.branchName}}</p>
+          </div>
+          
+          <div class="info-item">
+            <label>Branch Code</label>
+            <p>{{branch.branchCode}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Currency Code</label>
+            <p>{{branch.currencyCodeName}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Consolidation Query</label>
+            <p>{{branch.consolidationQuery}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>VAT Number</label>
+            <p>{{branch.vatNumber}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>EORI</label>
+            <p>{{branch.eori}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>IOSS</label>
+            <p>{{branch.ioss}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Status</label>
+            <p>{{branch.statusName}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>License Registration Number</label>
+            <p>{{branch.licenseRegistrationNumber}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>GPI</label>
+            <p>{{branch.gpi}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>External Code</label>
+            <p>{{branch.externalCode}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Billing External Code</label>
+            <p>{{branch.billingExternalCode}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Allowed COD Currencies</label>
+            <p>{{branch.allowedCODCurenciesName}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Weight Unit</label>
+            <p>{{branch.weightUnitName}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Dimension Unit</label>
+            <p>{{branch.dimensionUnitName}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Product Service</label>
+            <p>{{branch.productService}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Product Type Code</label>
+            <p>{{branch.productTypeCode}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Shipment Service</label>
+            <p>{{branch.shipmentService}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Supplier Code</label>
+            <p>{{branch.supplierCode}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Customer Code</label>
+            <p>{{branch.customerCode}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Branch Addresses Section -->
+    <div class="addresses-section" *ngIf="addresses.length > 0 && hasPermission('View Address')">
+      <div class="section-header">
+        <h2>Branch Addresses</h2>
+        <button mat-raised-button color="primary" 
+                *ngIf="hasPermission('Create Address')"
+                (click)="navigateToAddAddress()">
+          <mat-icon>add</mat-icon>
+          Add Address
+        </button>
+      </div>
+      <div class="addresses-grid">
+        <mat-card class="branch-card" *ngFor="let address of addresses">
+          <mat-card-header>
+            <mat-card-title>{{address.addressType}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="address-details">
+              <p><strong>Country:</strong> {{address.countryName || getCountryName(address.country)}}</p>
+              <p><strong>City:</strong> {{address.city}}</p>
+              <p><strong>Email:</strong> {{address.email}}</p>
+              <p><strong>Phone:</strong> {{address.phone}}</p>
+              <p><strong>Contact Name:</strong> {{address.contactName}}</p>
+            </div>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item *ngIf="hasPermission('View Address')"
+                      (click)="viewAddressDetails(address.id)">
+                <mat-icon>visibility</mat-icon>
+                <span>View Details</span>
+              </button>
+              <button mat-menu-item *ngIf="hasPermission('Edit Address')"
+                      (click)="editAddress(address.id)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item *ngIf="hasPermission('Delete Address')"
+                      (click)="deleteAddress(address.id)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </ng-container>
+
+  <div *ngIf="!branch" class="loading-state">
+    <mat-icon>hourglass_empty</mat-icon>
+    <p>Loading branch details...</p>
+  </div>
+
+  <!-- No Access Message -->
+  <div *ngIf="!hasPermission('View Branch')" class="no-access-message">
+    <mat-card>
+      <mat-card-content>
+        <p>You don't have permission to view branch details.</p>
+        <button mat-button (click)="goBack()">Go Back</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div> 

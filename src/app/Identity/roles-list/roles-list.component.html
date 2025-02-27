@@ -1,0 +1,37 @@
+<div class="roles-container" *ngIf="hasPermission('View Role')">
+  <div class="header">
+    <h2>Roles</h2>
+    <button mat-raised-button color="primary" (click)="addRole()" *ngIf="hasPermission('Create Role')">
+      <mat-icon>add</mat-icon>
+      Add Role
+    </button>
+  </div>
+
+  <div class="roles-grid">
+    <mat-card *ngFor="let role of roles" class="role-card">
+      <mat-card-header>
+        <mat-card-title>{{role.name}}</mat-card-title>
+        <div class="status-badge"  [ngClass]="{'status-1': role.status === 1, 'status-2': role.status === 2}">
+            {{ role.status === 1 ? 'Active' : role.status === 2 ? 'Inactive' : 'Unknown' }}
+        </div>
+      </mat-card-header>
+      
+      
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="viewPermissions(role.id)" *ngIf="hasPermission('View Role')">
+          <mat-icon>security</mat-icon>
+          View Permissions
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<div *ngIf="!hasPermission('View Role')" class="no-access-message">
+  <mat-card>
+    <mat-card-content>
+      <p>You don't have permission to view users.</p>
+      <button mat-button routerLink="/">Go to Dashboard</button>
+    </mat-card-content>
+  </mat-card>
+</div>

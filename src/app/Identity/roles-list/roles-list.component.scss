@@ -1,0 +1,94 @@
+.roles-container {
+  padding: 24px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .role-card {
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    mat-card-header {
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+
+      mat-card-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 500;
+        color: #334155;
+      }
+
+      .status-badge {
+        padding: 4px 12px;
+        border-radius: 9999px;
+        font-size: 14px;
+        font-weight: 500;
+
+        &.status-1 {
+          background-color: #dcfce7;
+          color: #166534;
+        }
+
+        &.status-2 {
+          background-color: #fee2e2;
+          color: #991b1b;
+        }
+      }
+    }
+
+    mat-card-actions {
+      padding: 16px;
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .roles-container {
+    padding: 16px;
+
+    .roles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

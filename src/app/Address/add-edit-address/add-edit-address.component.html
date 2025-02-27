@@ -1,0 +1,91 @@
+<div class="form-container" *ngIf="hasPermission(isEditMode ? 'Edit Address' : 'Create Address')">
+  <div class="form-header">
+    <h1>{{isEditMode ? 'Edit' : 'Add'}} Address</h1>
+    <button class="back-button" (click)="goBack()">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back to List
+    </button>
+  </div>
+
+  <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="address-form">
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Contact Name</mat-label>
+        <input matInput formControlName="contactName" placeholder="Enter contact name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Enter email">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" placeholder="Enter phone number">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Address Line 1</mat-label>
+        <input matInput formControlName="addressLine1" placeholder="Enter address line 1">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Address Line 2</mat-label>
+        <input matInput formControlName="addressLine2" placeholder="Enter address line 2">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" placeholder="Enter city">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Country</mat-label>
+        <input matInput formControlName="country" placeholder="Enter country">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Zip Code</mat-label>
+        <input matInput formControlName="zipCode" placeholder="Enter zip code">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>FAX Number</mat-label>
+        <input matInput formControlName="faxNumber" placeholder="Enter FAX number">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Location Code 1</mat-label>
+        <input matInput formControlName="locationCode1" placeholder="Enter location code 1">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Location Code 2</mat-label>
+        <input matInput formControlName="locationCode2" placeholder="Enter location code 2">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Location Code 3</mat-label>
+        <input matInput formControlName="locationCode3" placeholder="Enter location code 3">
+      </mat-form-field>
+
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!addressForm.valid">
+        {{isEditMode ? 'Update' : 'Create'}} Address
+      </button>
+      <button mat-button type="button" (click)="goBack()">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<!-- No Access Message -->
+<div *ngIf="!hasPermission(isEditMode ? 'Edit Address' : 'Create Address')" class="no-access-message">
+  <mat-card>
+    <mat-card-content>
+      <p>You don't have permission to {{isEditMode ? 'edit' : 'create'}} addresses.</p>
+      <button mat-button (click)="goBack()">Go Back</button>
+    </mat-card-content>
+  </mat-card>
+</div> 

@@ -1,0 +1,156 @@
+.dashboard-container {
+    padding: 24px;
+    background: #f8fafc;
+    min-height: 100vh;
+  
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 24px;
+    }
+  
+    // Stats Section
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+  
+      .stat-card {
+        background: linear-gradient(45deg, #4158d0, #c850c0);
+        color: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+        }
+  
+        .icon-wrapper {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+  
+          .mat-icon {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            color: white;
+          }
+        }
+  
+        .stat-content {
+          h3 {
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.9;
+            margin: 0 0 8px;
+          }
+  
+          .value {
+            font-size: 24px;
+            font-weight: bold;
+          }
+        }
+  
+        &.total .icon-wrapper {
+          background: #3b82f6;
+        }
+  
+        &.active .icon-wrapper {
+          background: #22c55e;
+        }
+  
+        &.inactive .icon-wrapper {
+          background: #ef4444;
+        }
+  
+        &.draft .icon-wrapper {
+          background: #f59e0b;
+        }
+      }
+    }
+  
+    // Recent Activity Section
+    .recent-activity {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  
+      h2 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 16px;
+      }
+  
+      .mat-list-item {
+        border-bottom: 1px solid #f1f5f9;
+        height: 72px;
+  
+        &:last-child {
+          border-bottom: none;
+        }
+  
+        .mat-icon {
+          color: #64748b;
+        }
+  
+        .secondary-text {
+          color: #64748b;
+          font-size: 13px;
+        }
+  
+        .status-badge {
+          padding: 4px 12px;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: 500;
+  
+          &.active {
+            background: #dcfce7;
+            color: #15803d;
+          }
+  
+          &.inactive {
+            background: #fee2e2;
+            color: #b91c1c;
+          }
+  
+          &.deleted {
+            background: #7f1d1d;
+            color: white;
+          }
+  
+          &.draft {
+            background: #dbeafe;
+            color: #1e40af;
+          }
+        }
+      }
+    }
+  }
+  
+  // Responsive Styling
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 16px;
+  
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+  }
+  

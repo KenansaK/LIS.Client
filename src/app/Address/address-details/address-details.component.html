@@ -1,0 +1,111 @@
+<div class="details-container" *ngIf="hasPermission('View Address')">
+  <div class="details-header">
+    <h1>Address Details</h1>
+    <div class="header-actions">
+      <button mat-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Branch
+      </button>
+      <button mat-raised-button 
+              color="primary" 
+              [routerLink]="['/crm/branches', branchId, 'addresses', 'edit', addressId]"
+              [queryParams]="{customerId: customerId}"
+              *ngIf="hasPermission('Edit Address')">
+        <mat-icon>edit</mat-icon>
+        Edit Address
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!loading && !error && address">
+    <div class="details-content">
+      <div class="info-section">
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Country</label>
+            <p>{{address.countryName}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>City</label>
+            <p>{{address.city}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Address Line 1</label>
+            <p>{{address.addressLine1}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Address Line 2</label>
+            <p>{{address.addressLine2}}</p>
+          </div>
+
+          
+          <div class="info-item">
+            <label>ZIP Code</label>
+            <p>{{address.zipCode}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Location Code 1</label>
+            <p>{{address.locationCode1}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Location Code 2</label>
+            <p>{{address.locationCode2}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Location Code 3</label>
+            <p>{{address.locationCode3}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Contact Name</label>
+            <p>{{address.contactName}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Email</label>
+            <p>{{address.email}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>Phone</label>
+            <p>{{address.phone}}</p>
+          </div>
+
+          <div class="info-item">
+            <label>FAX Number</label>
+            <p>{{address.faxNumber}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Loading address details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-state">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{error}}</p>
+    <button mat-button (click)="goBack()">Go Back</button>
+  </div>
+</div>
+
+<!-- No Access Message -->
+<div *ngIf="!hasPermission('View Address')" class="no-access-message">
+  <mat-card>
+    <mat-card-content>
+      <p>You don't have permission to view address details.</p>
+      <button mat-button (click)="goBack()">Go Back</button>
+    </mat-card-content>
+  </mat-card>
+</div> 

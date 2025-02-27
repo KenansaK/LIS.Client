@@ -1,0 +1,46 @@
+<div class="dashboard-container" *ngIf="hasPermission('View Customer')">
+  <h1>CRM Service</h1>
+
+  <div class="stats-grid">
+    <div class="stat-card total">
+      <div class="icon-wrapper">
+        <mat-icon>groups</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>Total Customers</h3>
+        <div class="value">{{stats.totalCustomers}}</div>
+      </div>
+    </div>
+
+    <div class="stat-card active">
+      <div class="icon-wrapper">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>Active Customers</h3>
+        <div class="value">{{stats.activeCustomers}}</div>
+      </div>
+    </div>
+
+    <div class="stat-card inactive">
+      <div class="icon-wrapper">
+        <mat-icon>cancel</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>Inactive Customers</h3>
+        <div class="value">{{stats.inactiveCustomers}}</div>
+      </div>
+    </div>
+
+    <div class="stat-card draft">
+      <div class="icon-wrapper">
+        <mat-icon>edit_note</mat-icon>
+      </div>
+      <div class="stat-content">
+        <h3>Draft Customers</h3>
+        <div class="value">{{stats.draftCustomers}}</div>
+      </div>
+    </div>
+  </div>
+
+ 
